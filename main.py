@@ -1,10 +1,10 @@
 from PySide6.QtWidgets import QApplication
-from functions import MainWindow
+from function import Widget
 import sys
 
 app = QApplication(sys.argv)
-mw = MainWindow(app)
 
-mw.show()
+widget = Widget(app)
+widget.show()
+
 app.exec()
-
