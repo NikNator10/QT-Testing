@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QApplication
-from forms import Widget
+from widget import TextEditor
 import sys
 
 app = QApplication(sys.argv)
-widget = Widget(app)
+widget = TextEditor(app)
 
 widget.show()
 app.exec()
