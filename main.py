@@ -1,10 +1,9 @@
 from PySide6.QtWidgets import QApplication
-from forms import DataForm
+from forms import Widget
 import sys
 
 app = QApplication(sys.argv)
+widget = Widget(app)
 
-datawindow = DataForm(app)
-datawindow.show()
-
+widget.show()
 app.exec()
