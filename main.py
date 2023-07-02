@@ -1,14 +1,9 @@
 from PySide6.QtWidgets import QApplication
-from text import Editor
-from img import Img
+from layout import GridLayout
 import sys
 
 app = QApplication(sys.argv)
+gridlayout = GridLayout()
 
-text_editor = Editor(app)
-text_editor.show()
-
-img_test = Img()
-img_test.show()
-
+gridlayout.show()
 app.exec()
