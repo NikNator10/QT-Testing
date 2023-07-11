@@ -1,9 +1,10 @@
 from PySide6.QtWidgets import QApplication
-from grid import GridLayout
+from widget import Widget
 import sys
 
-app = QApplication(sys.argv)
-grid_layout = GridLayout(app)
+app = QApplication()
 
-grid_layout.show()
+widget = Widget()
+widget.show()
+
 app.exec()
