@@ -1,10 +1,9 @@
 from PySide6.QtWidgets import QApplication
-from widget import Widget
+from widget import Editor
 import sys
 
-app = QApplication()
+app = QApplication(sys.argv)
+widget = Editor(app)
 
-widget = Widget()
 widget.show()
-
 app.exec()
