@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QApplication
-from widget import Todo
+from widget import Tab
 import sys
 
 app = QApplication(sys.argv)
-todo_app = Todo(app)
+tab_app = Tab(app)
 
-todo_app.show()
+tab_app.show()
 app.exec()
