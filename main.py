@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QApplication
-from widget import Tab
+from widget import Combo
 import sys
 
 app = QApplication(sys.argv)
-tab_app = Tab()
+combobox = Combo()
 
-tab_app.show()
+combobox.show()
 app.exec()

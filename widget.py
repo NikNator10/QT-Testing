@@ -1,53 +1,63 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTabWidget, QCheckBox, QGroupBox, QListWidget, QAbstractItemView, QLineEdit, QPushButton, QLabel
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QComboBox, QPushButton, QLabel, QLineEdit
 
-class Tab(QWidget):
+class Combo(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Tab-Widget")
 
-        tab = QTabWidget()
+        self.setWindowTitle("Todo-Application with QComboBox")
 
-        # Checkbox - Tab
-        checkbox_widget = QWidget()
-        check_group = QGroupBox("Check")
-        check1 = QCheckBox("Check 1")
-        check2 = QCheckBox("Check 2")
+        self.todo_combo = QComboBox()
+        self.todo_combo.setPlaceholderText("Your Todos will appear here")
 
-        v_check_groupbox_layout = QVBoxLayout()
-        v_check_groupbox_layout.addWidget(check1)
-        v_check_groupbox_layout.addWidget(check2)
-        check_group.setLayout(v_check_groupbox_layout)
-
-        v_check_layout = QVBoxLayout()
-        v_check_layout.addWidget(check_group)
-        checkbox_widget.setLayout(v_check_layout)
-
-        todo_widget = QWidget()
-        self.todo = QListWidget()
-        self.todo.setSelectionMode(QAbstractItemView.ExtendedSelection)
-
-        # Todo - Tab
-        add_todo_label = QLabel("Todo")
+        # Add a todo
+        add_todo_label = QLabel("Todo: ")
         self.add_todo_line_edit = QLineEdit()
         add_todo_button = QPushButton("Add Todo")
         add_todo_button.clicked.connect(self.add_todo)
-
+        
+        # Layout for adding todos
         h_add_todo_layout = QHBoxLayout()
         h_add_todo_layout.addWidget(add_todo_label)
         h_add_todo_layout.addWidget(self.add_todo_line_edit)
         h_add_todo_layout.addWidget(add_todo_button)
 
-        v_todo_layout = QVBoxLayout()    
-        v_todo_layout.addWidget(self.todo)
-        v_todo_layout.addLayout(h_add_todo_layout)
-        todo_widget.setLayout(v_todo_layout)
+        # Delete selected todos
+        delete_todo = QPushButton("Delete selected Todo")
+        delete_todo.clicked.connect(self.delete_todo)
 
-        tab.addTab(check_group, "Checkbox")
-        tab.addTab(todo_widget, "Todo")
+        # Clear all todos
+        clear_todo = QPushButton("Clear all Todos")
+        clear_todo.clicked.connect(self.clear_todo)
 
-        v_widget_layout = QVBoxLayout()
-        v_widget_layout.addWidget(tab)
-        self.setLayout(v_widget_layout)
+        # List current todo
+        list_current_todo = QPushButton("List current Todo")
+        list_current_todo.clicked.connect(self.list_current_todo)
+
+    	# List all todos
+        list_all_todo = QPushButton("List all Todos")
+        list_all_todo.clicked.connect(self.list_all_todo)
+
+        v_layout = QVBoxLayout()
+        v_layout.addWidget(self.todo_combo)
+        v_layout.addLayout(h_add_todo_layout)
+        v_layout.addWidget(delete_todo)
+        v_layout.addWidget(clear_todo)
+        v_layout.addWidget(list_current_todo)
+        v_layout.addWidget(list_all_todo)
+        self.setLayout(v_layout)
 
     def add_todo(self):
-        self.todo.addItem(self.add_todo_line_edit.text())
+        self.todo_combo.addItem(self.add_todo_line_edit.text())
+
+    def delete_todo(self):
+        self.todo_combo.removeItem(self.todo_combo.currentIndex())
+
+    def clear_todo(self):
+        self.todo_combo.clear()
+
+    def list_current_todo(self):
+        print("Current Item: ", self.todo_combo.currentText(),"\nCurrent Index: ", self.todo_combo.currentIndex())
+    
+    def list_all_todo(self):
+        for i in range(self.todo_combo.count()):
+            print(f"[{i}] - {self.todo_combo.itemText(i)}")
