@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QAbstractItemView
+from PySide6.QtWidgets import QWidget
 from ui_widget import Ui_Widget
 
 class Widget(QWidget, Ui_Widget):
@@ -6,10 +6,25 @@ class Widget(QWidget, Ui_Widget):
         super().__init__()
         self.setupUi(self)
 
-        self.setWindowTitle("Basic Todo-Application")
+        self.setWindowTitle("Basic Text-Editor")
 
-        self.todo_list_widget.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.add_todo_button.clicked.connect(self.add_todo)
+        self.select_all_button.clicked.connect(self.select_all)
+        self.copy_button.clicked.connect(self.copy)
+        self.paste_button.clicked.connect(self.paste)
+        self.undo_button.clicked.connect(self.undo)
+        self.redo_button.clicked.connect(self.redo)
+        self.clear_button.clicked.connect(self.clear)
 
-    def add_todo(self):
-        self.todo_list_widget.addItem(self.add_todo_line_edit.text())
+    def select_all(self):
+        self.text_edit.selectAll()
+    def copy(self):
+        self.text_edit.copy()
+    def paste(self):
+        self.text_edit.paste()
+    def undo(self):
+        self.text_edit.undo()
+    def redo(self):
+        self.text_edit.redo()
+    def clear(self):
+        self.text_edit.clear()
+    

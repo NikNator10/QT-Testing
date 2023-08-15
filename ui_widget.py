@@ -15,44 +15,59 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
-    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
+    QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
-        Widget.resize(663, 500)
-        self.verticalLayout = QVBoxLayout(Widget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.todo_list_widget = QListWidget(Widget)
-        self.todo_list_widget.setObjectName(u"todo_list_widget")
-        font = QFont()
-        font.setPointSize(12)
-        self.todo_list_widget.setFont(font)
-
-        self.verticalLayout.addWidget(self.todo_list_widget)
-
-        self.horizontalLayout = QHBoxLayout()
+        Widget.resize(919, 457)
+        self.horizontalLayout = QHBoxLayout(Widget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label = QLabel(Widget)
-        self.label.setObjectName(u"label")
+        self.text_edit = QTextEdit(Widget)
+        self.text_edit.setObjectName(u"text_edit")
 
-        self.horizontalLayout.addWidget(self.label)
+        self.horizontalLayout.addWidget(self.text_edit)
 
-        self.add_todo_line_edit = QLineEdit(Widget)
-        self.add_todo_line_edit.setObjectName(u"add_todo_line_edit")
+        self.verticalSpacer = QSpacerItem(20, 436, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.horizontalLayout.addWidget(self.add_todo_line_edit)
+        self.horizontalLayout.addItem(self.verticalSpacer)
 
-        self.add_todo_button = QPushButton(Widget)
-        self.add_todo_button.setObjectName(u"add_todo_button")
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.select_all_button = QPushButton(Widget)
+        self.select_all_button.setObjectName(u"select_all_button")
 
-        self.horizontalLayout.addWidget(self.add_todo_button)
+        self.verticalLayout.addWidget(self.select_all_button)
+
+        self.copy_button = QPushButton(Widget)
+        self.copy_button.setObjectName(u"copy_button")
+
+        self.verticalLayout.addWidget(self.copy_button)
+
+        self.paste_button = QPushButton(Widget)
+        self.paste_button.setObjectName(u"paste_button")
+
+        self.verticalLayout.addWidget(self.paste_button)
+
+        self.undo_button = QPushButton(Widget)
+        self.undo_button.setObjectName(u"undo_button")
+
+        self.verticalLayout.addWidget(self.undo_button)
+
+        self.redo_button = QPushButton(Widget)
+        self.redo_button.setObjectName(u"redo_button")
+
+        self.verticalLayout.addWidget(self.redo_button)
+
+        self.clear_button = QPushButton(Widget)
+        self.clear_button.setObjectName(u"clear_button")
+
+        self.verticalLayout.addWidget(self.clear_button)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.horizontalLayout.addLayout(self.verticalLayout)
 
 
         self.retranslateUi(Widget)
@@ -62,7 +77,11 @@ class Ui_Widget(object):
 
     def retranslateUi(self, Widget):
         Widget.setWindowTitle(QCoreApplication.translate("Widget", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Widget", u"Todo:", None))
-        self.add_todo_button.setText(QCoreApplication.translate("Widget", u"Add Todo", None))
+        self.select_all_button.setText(QCoreApplication.translate("Widget", u"Select All", None))
+        self.copy_button.setText(QCoreApplication.translate("Widget", u"Copy", None))
+        self.paste_button.setText(QCoreApplication.translate("Widget", u"Paste", None))
+        self.undo_button.setText(QCoreApplication.translate("Widget", u"Undo", None))
+        self.redo_button.setText(QCoreApplication.translate("Widget", u"Redo", None))
+        self.clear_button.setText(QCoreApplication.translate("Widget", u"Clear", None))
     # retranslateUi
 
