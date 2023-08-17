@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>339</width>
-    <height>300</height>
+    <width>599</width>
+    <height>84</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,14 +15,22 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QListWidget" name="list_widget"/>
-   </item>
-   <item>
-    <widget class="QPushButton" name="provide_info_button">
+    <widget class="QPushButton" name="provide_information_button">
      <property name="text">
-      <string>Provide Info</string>
+      <string>Provide Information</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="info_label">
+       <property name="text">
+        <string>Your information:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
