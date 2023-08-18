@@ -8,4 +8,3 @@ widget = Widget()
 widget.show()
 app.exec()
 
-

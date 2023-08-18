@@ -1,24 +1,25 @@
-from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QDialog, QDialogButtonBox
 from ui_dialog import Ui_Dialog
 
 class Dialog(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle("Dialog")
+        self.setWindowTitle("QDialog - Window")
 
-        self.fav_os_combo_box.addItem("Linux")
-        self.fav_os_combo_box.addItem("Windows")
-        self.fav_os_combo_box.addItem("MacOS")
-        self.ok_button.clicked.connect(self.ok)
-        self.cancel_button.clicked.connect(self.cancel)
+        self.button_box.clicked.connect(self.button_box_trigger)
+    
+    def button_box_trigger(self, button):
+        self.std_button = self.button_box.standardButton(button)
+        if self.std_button == QDialogButtonBox.Ok:
+            if not self.name_line_edit.text() == '':
+                self.accept()
+        elif self.std_button == QDialogButtonBox.Save:
+            print("Save")
+        elif self.std_button == QDialogButtonBox.Open:
+            print("Open")
+        elif self.std_button == QDialogButtonBox.Cancel:
+            self.reject()
+        else:
+            print("Other buttons pressed")
 
-    def ok(self):
-        if not self.name_line_edit.text() == '':
-            self.name = self.name_line_edit.text()
-            self.fav_os = self.fav_os_combo_box.currentText()
-            self.accept()
-            print("Dialog accpeted")
-    def cancel(self):
-       self.reject()
-       print("Dialog rejected")
