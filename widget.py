@@ -6,16 +6,16 @@ class Widget(QWidget, Ui_Widget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle("QWidget - Window")
+        self.setWindowTitle("Widget")
 
         self.dialog = Dialog()
 
         self.provide_info_button.clicked.connect(self.provide_info)
-
+    
     def provide_info(self):
         ret = self.dialog.exec()
         if ret == QDialog.Accepted:
-            self.info_label.setText(f"Your information: Your name is {self.dialog.name_line_edit.text()} and your favourite OS is {self.dialog.combo_box.currentText()}.")
+            self.list_widget.addItem(self.dialog.fav_os_line_edit.text())
+            print("Dialog accepted")
         else:
             print("Dialog rejected")
-        

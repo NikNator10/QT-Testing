@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
-    <height>179</height>
+    <width>527</width>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,53 +15,23 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Your Name:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="name_line_edit"/>
-     </item>
-    </layout>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Your favourite OS:</string>
+        <string>Favourite OS:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="combo_box">
-       <item>
-        <property name="text">
-         <string>Linux</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Windows</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>MacOS</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QLineEdit" name="fav_os_line_edit"/>
      </item>
     </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="button_box">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Open|QDialogButtonBox::Save|QDialogButtonBox::SaveAll</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Open|QDialogButtonBox::Save</set>
      </property>
     </widget>
    </item>
