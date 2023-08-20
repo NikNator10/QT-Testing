@@ -3,8 +3,7 @@ from PySide6.QtWidgets import QApplication
 from widget import Widget
 
 app = QApplication(sys.argv)
-window = Widget()
+widget = Widget()
 
-window.show()
+widget.show()
 app.exec()
-

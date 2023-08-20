@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>173</height>
+    <width>400</width>
+    <height>132</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,14 +15,32 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPushButton" name="provide_info_button">
+    <widget class="QPushButton" name="get_existing_directory_button">
      <property name="text">
-      <string>Provide Information</string>
+      <string>getExistingDirectory</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="list_widget"/>
+    <widget class="QPushButton" name="get_open_file_name">
+     <property name="text">
+      <string>getOpenFileName  </string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="get_open_file_names">
+     <property name="text">
+      <string>getOpenFileNames</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="get_save_file_name_button">
+     <property name="text">
+      <string>getSaveFileName</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
