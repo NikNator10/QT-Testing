@@ -1,30 +1,39 @@
-from PySide6.QtWidgets import QWidget, QFileDialog
-from ui_widget import Ui_Widget
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QFileDialog
 
-class Widget(QWidget, Ui_Widget):
+class Widget(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
         self.setWindowTitle("QFileDialog - Demo")
 
-        self.get_existing_directory_button.clicked.connect(self.get_dir)
-        self.get_open_file_name.clicked.connect(self.get_file)
-        self.get_open_file_names.clicked.connect(self.get_files)
-        self.get_save_file_name_button.clicked.connect(self.get_save)
+        self.resize(300,100)
+
+        get_existing_dir_button = QPushButton("getExistingDirectory")
+        get_open_file_name = QPushButton("getOpenFileName")
+        get_open_file_names = QPushButton("getOpenFileNames")
+        get_save_file_name = QPushButton("getSaveFileName")
+
+        get_existing_dir_button.clicked.connect(self.get_dir)
+        get_open_file_name.clicked.connect(self.get_open_file_name)
+        get_open_file_names.clicked.connect(self.get_open_file_names)
+        get_save_file_name.clicked.connect(self.get_save_file_name)
+
+        v_layout = QVBoxLayout()
+        v_layout.addWidget(get_existing_dir_button)
+        v_layout.addWidget(get_open_file_name)
+        v_layout.addWidget(get_open_file_names)
+        v_layout.addWidget(get_save_file_name)
+        self.setLayout(v_layout)
 
     def get_dir(self):
-        dir = QFileDialog.getExistingDirectory(self, "Open Directory", "/home", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+        dir = QFileDialog.getExistingDirectory(self, "Open Directory", "", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         print(dir)
-    
-    def get_file(self):
+    def get_open_file_name(self):
         file_name,_ = QFileDialog.getOpenFileName(self, "Open File", "/home", "Images (*.png *.jpg);;All Files (*.*)")
         print(file_name)
-    
-    def get_files(self):
+    def get_open_file_names(self):
         file_names,_ = QFileDialog.getOpenFileNames(self, "Open Files", "/home", "Images (*.png *.jpg);;All Files (*.*)")
         for f in file_names:
             print(f)
-
-    def get_save(self):
-        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "untitled.png", "Images (*.png *.jpg);;All Files (*.*)")
+    def get_save_file_name(self):
+        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "/home", "Images (*.png *.jpg);;All Files (*.*)")
         print(file_name)
