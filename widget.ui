@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>102</height>
+    <width>519</width>
+    <height>85</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,16 +15,34 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPushButton" name="button">
-     <property name="text">
-      <string>Click to change font</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="text_color_button">
+       <property name="text">
+        <string>Text Color</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="background_color_button">
+       <property name="text">
+        <string>Background Color</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="font_button">
+       <property name="text">
+        <string>Font</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Test font</string>
+      <string>Some text</string>
      </property>
     </widget>
    </item>
