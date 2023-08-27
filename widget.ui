@@ -6,54 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>428</width>
+    <height>414</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="QPushButton" name="button">
+    <widget class="QPushButton" name="button_1">
      <property name="text">
-      <string>Click here</string>
+      <string>Button 1</string>
      </property>
     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QComboBox" name="combo_box">
-       <item>
-        <property name="text">
-         <string>One</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Two</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Three</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="line_edit"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QTextEdit" name="text_edit"/>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="group_box">
+      <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string>GroupBox</string>
        </property>
@@ -82,7 +59,53 @@
        </layout>
       </widget>
      </item>
+     <item>
+      <widget class="QTextEdit" name="textEdit"/>
+     </item>
     </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="line_edit"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combo_box">
+       <item>
+        <property name="text">
+         <string>Eins</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Zwei</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Drei</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Vier</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Fünf</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="button_2">
+     <property name="text">
+      <string>Button 2</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

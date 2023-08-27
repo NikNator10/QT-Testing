@@ -5,9 +5,7 @@ class Widget(QWidget, Ui_Widget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle("Styles in Qt")
+        self.setWindowTitle("Stylesheets")
 
-        self.button.clicked.connect(self.button_clicked)
-        
-    def button_clicked(self):
-        print("Button clicked")
+        self.setStyleSheet("QPushButton{color: red; background-color: blue;};QLineEdit{color: red; background-color: green;}")
+        self.line_edit.setStyleSheet("color: red; background-color: green;")

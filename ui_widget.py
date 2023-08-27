@@ -23,63 +23,75 @@ class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
-        Widget.resize(400, 300)
-        self.verticalLayout_2 = QVBoxLayout(Widget)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.button = QPushButton(Widget)
-        self.button.setObjectName(u"button")
+        Widget.resize(428, 414)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Widget.sizePolicy().hasHeightForWidth())
+        Widget.setSizePolicy(sizePolicy)
+        self.verticalLayout_3 = QVBoxLayout(Widget)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.button_1 = QPushButton(Widget)
+        self.button_1.setObjectName(u"button_1")
 
-        self.verticalLayout_2.addWidget(self.button)
+        self.verticalLayout_3.addWidget(self.button_1)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.combo_box = QComboBox(Widget)
-        self.combo_box.addItem("")
-        self.combo_box.addItem("")
-        self.combo_box.addItem("")
-        self.combo_box.setObjectName(u"combo_box")
-
-        self.horizontalLayout.addWidget(self.combo_box)
-
-        self.line_edit = QLineEdit(Widget)
-        self.line_edit.setObjectName(u"line_edit")
-
-        self.horizontalLayout.addWidget(self.line_edit)
-
-
-        self.verticalLayout_2.addLayout(self.horizontalLayout)
-
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.text_edit = QTextEdit(Widget)
-        self.text_edit.setObjectName(u"text_edit")
-
-        self.horizontalLayout_2.addWidget(self.text_edit)
-
-        self.group_box = QGroupBox(Widget)
-        self.group_box.setObjectName(u"group_box")
-        self.verticalLayout = QVBoxLayout(self.group_box)
+        self.groupBox = QGroupBox(Widget)
+        self.groupBox.setObjectName(u"groupBox")
+        self.verticalLayout = QVBoxLayout(self.groupBox)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.radio_button_1 = QRadioButton(self.group_box)
+        self.radio_button_1 = QRadioButton(self.groupBox)
         self.radio_button_1.setObjectName(u"radio_button_1")
 
         self.verticalLayout.addWidget(self.radio_button_1)
 
-        self.radio_button_2 = QRadioButton(self.group_box)
+        self.radio_button_2 = QRadioButton(self.groupBox)
         self.radio_button_2.setObjectName(u"radio_button_2")
 
         self.verticalLayout.addWidget(self.radio_button_2)
 
-        self.radio_button_3 = QRadioButton(self.group_box)
+        self.radio_button_3 = QRadioButton(self.groupBox)
         self.radio_button_3.setObjectName(u"radio_button_3")
 
         self.verticalLayout.addWidget(self.radio_button_3)
 
 
-        self.horizontalLayout_2.addWidget(self.group_box)
+        self.horizontalLayout.addWidget(self.groupBox)
+
+        self.textEdit = QTextEdit(Widget)
+        self.textEdit.setObjectName(u"textEdit")
+
+        self.horizontalLayout.addWidget(self.textEdit)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_3.addLayout(self.horizontalLayout)
+
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.line_edit = QLineEdit(Widget)
+        self.line_edit.setObjectName(u"line_edit")
+
+        self.verticalLayout_2.addWidget(self.line_edit)
+
+        self.combo_box = QComboBox(Widget)
+        self.combo_box.addItem("")
+        self.combo_box.addItem("")
+        self.combo_box.addItem("")
+        self.combo_box.addItem("")
+        self.combo_box.addItem("")
+        self.combo_box.setObjectName(u"combo_box")
+
+        self.verticalLayout_2.addWidget(self.combo_box)
+
+
+        self.verticalLayout_3.addLayout(self.verticalLayout_2)
+
+        self.button_2 = QPushButton(Widget)
+        self.button_2.setObjectName(u"button_2")
+
+        self.verticalLayout_3.addWidget(self.button_2)
 
 
         self.retranslateUi(Widget)
@@ -89,14 +101,17 @@ class Ui_Widget(object):
 
     def retranslateUi(self, Widget):
         Widget.setWindowTitle(QCoreApplication.translate("Widget", u"Form", None))
-        self.button.setText(QCoreApplication.translate("Widget", u"Click here", None))
-        self.combo_box.setItemText(0, QCoreApplication.translate("Widget", u"One", None))
-        self.combo_box.setItemText(1, QCoreApplication.translate("Widget", u"Two", None))
-        self.combo_box.setItemText(2, QCoreApplication.translate("Widget", u"Three", None))
-
-        self.group_box.setTitle(QCoreApplication.translate("Widget", u"GroupBox", None))
+        self.button_1.setText(QCoreApplication.translate("Widget", u"Button 1", None))
+        self.groupBox.setTitle(QCoreApplication.translate("Widget", u"GroupBox", None))
         self.radio_button_1.setText(QCoreApplication.translate("Widget", u"RadioButton", None))
         self.radio_button_2.setText(QCoreApplication.translate("Widget", u"RadioButton", None))
         self.radio_button_3.setText(QCoreApplication.translate("Widget", u"RadioButton", None))
+        self.combo_box.setItemText(0, QCoreApplication.translate("Widget", u"Eins", None))
+        self.combo_box.setItemText(1, QCoreApplication.translate("Widget", u"Zwei", None))
+        self.combo_box.setItemText(2, QCoreApplication.translate("Widget", u"Drei", None))
+        self.combo_box.setItemText(3, QCoreApplication.translate("Widget", u"Vier", None))
+        self.combo_box.setItemText(4, QCoreApplication.translate("Widget", u"F\u00fcnf", None))
+
+        self.button_2.setText(QCoreApplication.translate("Widget", u"Button 2", None))
     # retranslateUi
 
