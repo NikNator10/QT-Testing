@@ -1,0 +1,18 @@
+<RCC>
+  <qresource>
+    <file>images/background_colorIcon.png</file>
+    <file>images/aboutIcon.png</file>
+    <file>images/aboutQtIcon.png</file>
+    <file>images/background_colorIcon.png</file>
+    <file>images/clearIcon.png</file>
+    <file>images/copyIcon.png</file>
+    <file>images/cutIcon.png</file>
+    <file>images/fontIcon.png</file>
+    <file>images/pasteIcon.png</file>
+    <file>images/quitIcon.png</file>
+    <file>images/redoIcon.png</file>
+    <file>images/selectIcon.png</file>
+    <file>images/text_colorIcon.png</file>
+    <file>images/undoIcon.png</file>
+  </qresource>
+</RCC>
