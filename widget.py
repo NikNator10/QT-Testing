@@ -1,107 +1,63 @@
-from PySide6.QtCore import Qt, QSettings
-from PySide6.QtGui import QColor
-from PySide6.QtWidgets import QWidget, QColorDialog
+from PySide6.QtWidgets import QWidget, QMessageBox, QFileDialog
+from PySide6.QtCore import QFile, QIODevice, QTextStream
 from ui_widget import Ui_Widget
 
 class Widget(QWidget, Ui_Widget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle("QFile - Demo")
 
-        self.color_list = [Qt.black, Qt.black, Qt.black, Qt.black, Qt.black, Qt.black]
+        self.save_file_button.clicked.connect(self.save_file)
+        self.open_file_button.clicked.connect(self.open_file)
+        self.select_file_button.clicked.connect(self.select_file)
+        self.copy_file_button.clicked.connect(self.copy_file)
 
-        self.button_1.clicked.connect(self.button_1_clicked)
-        self.button_2.clicked.connect(self.button_2_clicked)
-        self.button_3.clicked.connect(self.button_3_clicked)
-        self.button_4.clicked.connect(self.button_4_clicked)
-        self.button_5.clicked.connect(self.button_5_clicked)
-        self.button_6.clicked.connect(self.button_6_clicked)
+    def save_file(self):
+        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "untitled", "Text (*.txt);;All Files (*.*)")
+        if file_name == '':
+            return
+        print(f"file name: {file_name}")
+        file = QFile(file_name)
+        if not file.open(QIODevice.WriteOnly | QIODevice.Text):
+            return
+        
+        out_stream = QTextStream(file)
+        out_stream << self.text_edit.toPlainText()
+        file.close()
 
-        self.save_color_button.clicked.connect(self.save_color_button_clicked)
-        self.load_color_button.clicked.connect(self.load_color_button_clicked)
+    def open_file(self):
+        file_name,_ = QFileDialog.getOpenFileName(self, "Open File", "text", "Text (*.txt);;All Files (*.*)")
+        if file_name == '':
+            return
+        print(f"file name: {file_name}")
+        file = QFile(file_name)
+        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+            return
+        in_stream = QTextStream(file)
+        while not in_stream.atEnd():
+            line = in_stream.readLine()
+            file_content = ''
+            file_content += line
+        file.close()
+        self.text_edit.clear()
+        self.text_edit.setText(file_content)
 
-    def button_1_clicked(self):
-        color = QColorDialog.getColor(self.color_list[0], self, "Choose a background color")
-        if color.isValid():
-            self.color_list[0] = color
-            css = "background-color:" + color.name()
-            self.button_1.setStyleSheet(css)
+    def select_file(self):
+        file_name,_ = QFileDialog.getOpenFileName(self, "Select a file", "untitled", "Text (*.txt);; All Files (*.*)")
+        if file_name == '':
+            return
+        self.source_line_edit.setText(file_name)
     
-    def button_2_clicked(self):
-        color = QColorDialog.getColor(self.color_list[1], self, "Choose a background color")
-        if color.isValid():
-            self.color_list[1] = color
-            css = "background-color:" + color.name()
-            self.button_2.setStyleSheet(css)
-
-    def button_3_clicked(self):
-        color = QColorDialog.getColor(self.color_list[2], self, "Choose a background color")
-        if color.isValid():
-            self.color_list[2] = color
-            css = "background-color:" + color.name()
-            self.button_3.setStyleSheet(css)
+    def copy_file(self):
+        source = self.source_line_edit.text()
+        destination = self.destination_line_edit.text()
+        if source == '' or destination == '':
+            return
+        
+        file = QFile(source)
+        if file.copy(destination):
+            QMessageBox.information(self, "File", "File successfully copied")
+        else:
+            QMessageBox.information(self, "File", "Could not copy file")
     
-    def button_4_clicked(self):
-        color = QColorDialog.getColor(self.color_list[3], self, "Choose a background color")
-        if color.isValid():
-            self.color_list[3] = color
-            css = "background-color:" + color.name()
-            self.button_4.setStyleSheet(css)
-    
-    def button_5_clicked(self):
-        color = QColorDialog.getColor(self.color_list[4], self, "Choose a background color")
-        if color.isValid():
-            self.color_list[4] = color
-            css = "background-color:" + color.name()
-            self.button_5.setStyleSheet(css)
-    
-    def button_6_clicked(self):
-        color = QColorDialog.getColor(self.color_list[5], self, "Choose a background color")
-        if color.isValid():
-            self.color_list[5] = color
-            css = "background-color:" + color.name()
-            self.button_6.setStyleSheet(css)
-
-    def save_color(self, key, color): 
-        l_color = QColor(color)
-        red = l_color.red() 
-        green =l_color.green() 
-        blue = l_color.blue() 
-
-        settings = QSettings("Your Company Name", "Your Product Name")
-        settings.beginGroup("ButtonColor")
-        settings.setValue(key + "r", red)
-        settings.setValue(key + "g", green)
-        settings.setValue(key + "b", blue)
-        settings.endGroup()
-
-    def load_color(self, key):
-        settings = QSettings("Your Company Name", "Your Product Name")
-        settings.beginGroup("ButtonColor")
-        red = settings.value(key + "r")
-        green = settings.value(key + "g")
-        blue = settings.value(key + "b")
-        settings.endGroup()
-        return QColor(red, green, blue)
-
-    def set_loaded_color(self,key,index,button): 
-        color = self.load_color(key)
-        self.color_list[index] = color
-        css = "background-color:" + color.name()
-        button.setStyleSheet(css)
-
-    def load_color_button_clicked(self):
-        self.set_loaded_color("button_1", 0, self.button_1)
-        self.set_loaded_color("button_2", 1, self.button_2)
-        self.set_loaded_color("button_3", 2, self.button_3)
-        self.set_loaded_color("button_4", 3, self.button_4)
-        self.set_loaded_color("button_5", 4, self.button_5)
-        self.set_loaded_color("button_6", 5, self.button_6)
-
-    def save_color_button_clicked(self):
-        self.save_color("button_1", self.color_list[0])
-        self.save_color("button_2", self.color_list[1])
-        self.save_color("button_3", self.color_list[2])
-        self.save_color("button_4", self.color_list[3])
-        self.save_color("button_5", self.color_list[4])
-        self.save_color("button_6", self.color_list[5])
