@@ -6,37 +6,30 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>147</height>
+    <width>550</width>
+    <height>359</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <widget class="QTextEdit" name="text_edit"/>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLineEdit" name="src_line_edit"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="choose_file_button">
+      <widget class="QPushButton" name="open_file_button">
        <property name="text">
-        <string>Choose File</string>
+        <string>Open File</string>
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLineEdit" name="dst_line_edit"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="copy_button">
+      <widget class="QPushButton" name="save_file_button">
        <property name="text">
-        <string>Copy</string>
+        <string>Save File</string>
        </property>
       </widget>
      </item>
