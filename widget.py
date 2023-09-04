@@ -1,45 +1,52 @@
-from PySide6.QtWidgets import QWidget, QFileDialog
-from PySide6.QtCore import QFile, QIODevice, QTextStream
-from ui_widget import Ui_Widget
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QLineEdit, QSizePolicy, QMessageBox
+from PySide6.QtCore import QFile, QTextStream, QIODevice
 
-class Widget(QWidget, Ui_Widget):
+class Widget(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
-        self.setWindowTitle("Save & Open Files")
+        self.setWindowTitle("Copy file to another Path")
+        self.resize(300,100)
+        choose_file_button = QPushButton("Choose File")
+        choose_file_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        copy_file_button = QPushButton("Copy File")
+        copy_file_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
 
-        self.open_file_button.clicked.connect(self.open_file)
-        self.save_file_button.clicked.connect(self.save_file)
+
+        self.src_line_edit = QLineEdit()
+        self.src_line_edit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.dst_line_edit = QLineEdit()
+        self.dst_line_edit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        h_src_layout = QHBoxLayout()
+        h_src_layout.addWidget(self.src_line_edit)
+        h_src_layout.addWidget(choose_file_button)
+
+        h_dst_layout = QHBoxLayout()
+        h_dst_layout.addWidget(self.dst_line_edit)
+        h_dst_layout.addWidget(copy_file_button)
+
+        v_layout = QVBoxLayout()
+        v_layout.addLayout(h_src_layout)
+        v_layout.addLayout(h_dst_layout)
+        self.setLayout(v_layout)
+
+        choose_file_button.clicked.connect(self.choose_file)
+        copy_file_button.clicked.connect(self.copy_file)
+
+    def choose_file(self):
+        file_name,_ = QFileDialog.getOpenFileName(self, "Select a file", "", "Text-File (*.txt);;Images (*.png *.jpg);;All Files (*.*)")
+        if file_name == '':
+            return
+        self.src_line_edit.setText(file_name)
         
-    def open_file(self):
-        # Fixed bug from commit 987c358: file_content = '' should not be in while not in_stream.atEnd():
-        file_content = ''
-
-        file_name,_ = QFileDialog.getOpenFileName(self, "Open File", "", "Text (*.txt);;All Files (*.*)")
-        if file_name == '':
+    def copy_file(self):
+        src = self.src_line_edit.text()
+        dst = self.dst_line_edit.text()
+        if src == '' or dst == '':
             return
-        print(f"file name: {file_name}")
-        file = QFile(file_name)
-        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-            return
-        in_stream = QTextStream(file)
-        while not in_stream.atEnd():
-            line = in_stream.readLine()
-            # Another fixed bug from previous commits 987c358 and 03ca6eb
-            file_content += '\n'
-            
-            file_content += line
-        file.close()
-        self.text_edit.clear()
-        self.text_edit.setText(file_content)
-
-    def save_file(self):
-        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "", "Text (*.txt);; All Files (*.*)")
-        if file_name == '':
-            return
-        file = QFile(file_name)
-        if not file.open(QIODevice.WriteOnly | QIODevice.Text):
-            return
-        out_stream = QTextStream(file)
-        out_stream << self.text_edit.toPlainText()
-        file.close()
+        file = QFile(src)
+        if file.copy(dst):
+            QMessageBox.information(self, "Success", "File copied successfully")
+        else:
+            QMessageBox.information(self, "Error", "Could not copy file")
