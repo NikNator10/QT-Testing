@@ -6,5 +6,6 @@ app = QApplication(sys.argv)
 app.setStyle("Fusion")
 widget = Widget()
 
+
 widget.show()
 app.exec()
