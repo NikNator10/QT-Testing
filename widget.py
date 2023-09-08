@@ -1,50 +1,60 @@
-from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QFileDialog, QTextEdit
-from PySide6.QtCore import QFile, QTextStream, QIODevice
+from PySide6.QtWidgets import QWidget, QFileDialog, QMessageBox
+from PySide6.QtCore import QDir, QFileInfo
+from ui_widget import Ui_Widget
 
-class Widget(QWidget):
+class Widget(QWidget, Ui_Widget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Save & Open Files")
+        self.setupUi(self)
+        self.setWindowTitle("QDir - Demo")
 
-        save_file_button = QPushButton("Save File")
-        open_file_button = QPushButton("Open File")
+        self.choose_dir_button.clicked.connect(self.choose_dir)
+        self.create_dir_button.clicked.connect(self.create_dir)
+        self.dir_exists_button.clicked.connect(self.dir_exists)
+        self.dir_or_file_button.clicked.connect(self.dir_or_file)
+        self.folder_content_button.clicked.connect(self.folder_content)  
 
-        self.text_edit = QTextEdit()
-        
-        v_button_layout = QVBoxLayout()
-        v_button_layout.addWidget(save_file_button)
-        v_button_layout.addWidget(open_file_button)
+    def choose_dir(self):
+        dir_path = QFileDialog.getExistingDirectory(self, "Choose directory")
+        if dir_path == "":
+            return
+        print(f"Dir path: {dir_path}")
+        self.dir_path_line_edit.setText(dir_path)
 
-        h_layout = QHBoxLayout()
-        h_layout.addWidget(self.text_edit)
-        h_layout.addLayout(v_button_layout)
-        self.setLayout(h_layout)
-        
-        save_file_button.clicked.connect(self.save_file)
-        open_file_button.clicked.connect(self.open_file)
+    def create_dir(self):
+        dir_path = self.dir_path_line_edit.text()
+        if dir_path == "":
+            return
+        dir = QDir(dir_path)
+        if not dir.exists():
+            if dir.mkdir(dir_path):
+                QMessageBox.information(self, "Success", "Directory created successfully")     
+        else:
+            QMessageBox.information(self, "Error", "Directory already exists")
 
-    def save_file(self):
-        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "", "Text-File (*.txt);;All Files (*.*)")
-        if file_name == "":
+    def dir_exists(self):
+        dir_path = self.dir_path_line_edit.text()
+        if dir_path == "":
             return
-        file = QFile(file_name)
-        if not file.open(QIODevice.WriteOnly | QIODevice.Text):
+        dir = QDir(dir_path)
+        if dir.exists():
+            QMessageBox.information(self, "Directory", "Directory exists")
+        else:
+            QMessageBox.information(self, "Directory", "This directory doesn't exist")
+
+    def folder_content(self):
+        dir_path = self.dir_path_line_edit.text()
+        if dir_path == "":
             return
-        out_stream = QTextStream(file)
-        out_stream << self.text_edit.toPlainText()
-    
-    def open_file(self):
-        file_content = ""
-        file_name,_ = QFileDialog.getOpenFileName(self, "Open File", "", "Text-File (*.txt);;All Files (*.*)")
-        if file_name == "":
-            return
-        file = QFile(file_name)
-        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-            return
-        in_stream = QTextStream(file)
-        while not in_stream.atEnd():
-            line = in_stream.readLine()
-            file_content += line
-            file_content += "\n"
-        self.text_edit.clear()
-        self.text_edit.setText(file_content)
+        dir = QDir(dir_path)
+        file_list = dir.entryInfoList()
+        for i in range(len(file_list)):
+            file_info  = QFileInfo(file_list[i])
+            self.list_widget.addItem(file_info.absoluteFilePath())
+
+    def dir_or_file(self):
+        file_info = QFileInfo(self.list_widget.currentItem().text())
+        if file_info.isFile():
+            QMessageBox.information(self, "Info", "You selected a file")
+        else:
+            QMessageBox.information(self, "Info", "You selected a directory")
