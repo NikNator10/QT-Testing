@@ -10,51 +10,62 @@ class Widget(QWidget, Ui_Widget):
 
         self.choose_dir_button.clicked.connect(self.choose_dir)
         self.create_dir_button.clicked.connect(self.create_dir)
+        self.delete_dir_button.clicked.connect(self.delete_dir)
         self.dir_exists_button.clicked.connect(self.dir_exists)
-        self.dir_or_file_button.clicked.connect(self.dir_or_file)
-        self.folder_content_button.clicked.connect(self.folder_content)  
-
+        self.dir_file_button.clicked.connect(self.dir_file)
+        self.folder_content_button.clicked.connect(self.folder_content)
+        
     def choose_dir(self):
-        dir_path = QFileDialog.getExistingDirectory(self, "Choose directory")
+        dir_path = QFileDialog.getExistingDirectory(self, "Choose Directory")
         if dir_path == "":
             return
-        print(f"Dir path: {dir_path}")
-        self.dir_path_line_edit.setText(dir_path)
+        self.line_edit.setText(dir_path)
 
     def create_dir(self):
-        dir_path = self.dir_path_line_edit.text()
+        dir_path = self.line_edit.text()
         if dir_path == "":
             return
         dir = QDir(dir_path)
-        if not dir.exists():
-            if dir.mkdir(dir_path):
-                QMessageBox.information(self, "Success", "Directory created successfully")     
+        if dir.mkdir(dir_path):
+            QMessageBox.information(self, "Directory", "Directory created successfully")
         else:
-            QMessageBox.information(self, "Error", "Directory already exists")
+            QMessageBox.information(self, "Directory", "Directory already exists")
+
+    def delete_dir(self):
+        dir_path = self.line_edit.text()
+        if dir_path == "":
+            return
+        dir = QDir(dir_path)
+        if dir.rmdir(dir_path):
+            QMessageBox.information(self, "Directory", "Directory deleted successfully")
+        else:
+            QMessageBox.information(self, "Directory", "Could not delete directory: Directory doesn't exist")
 
     def dir_exists(self):
-        dir_path = self.dir_path_line_edit.text()
+        dir_path = self.line_edit.text()
         if dir_path == "":
             return
         dir = QDir(dir_path)
         if dir.exists():
             QMessageBox.information(self, "Directory", "Directory exists")
         else:
-            QMessageBox.information(self, "Directory", "This directory doesn't exist")
+            QMessageBox.information(self, "Directory", "Directory doesn't exist")
 
     def folder_content(self):
-        dir_path = self.dir_path_line_edit.text()
+        dir_path = self.line_edit.text()
         if dir_path == "":
             return
         dir = QDir(dir_path)
         file_list = dir.entryInfoList()
         for i in range(len(file_list)):
-            file_info  = QFileInfo(file_list[i])
+            file_info = QFileInfo(file_list[i])
             self.list_widget.addItem(file_info.absoluteFilePath())
 
-    def dir_or_file(self):
+    def dir_file(self):
         file_info = QFileInfo(self.list_widget.currentItem().text())
         if file_info.isFile():
-            QMessageBox.information(self, "Info", "You selected a file")
+            QMessageBox.information(self, "Directory", "The selected item is a file")
         else:
-            QMessageBox.information(self, "Info", "You selected a directory")
+            QMessageBox.information(self, "Directory", "The selected item is a directory")
+
+    

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>543</width>
+    <height>369</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLineEdit" name="dir_path_line_edit"/>
+      <widget class="QLineEdit" name="line_edit"/>
      </item>
      <item>
       <widget class="QListWidget" name="list_widget"/>
@@ -29,35 +29,42 @@
      <item>
       <widget class="QPushButton" name="choose_dir_button">
        <property name="text">
-        <string>Choose Dir</string>
+        <string>Choose Directory</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="create_dir_button">
        <property name="text">
-        <string>Create Dir</string>
+        <string>Create Directory</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delete_dir_button">
+       <property name="text">
+        <string>Delete Directory</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="dir_exists_button">
        <property name="text">
-        <string>Dir exists?</string>
+        <string>Does Dir exist?</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="dir_or_file_button">
+      <widget class="QPushButton" name="dir_file_button">
        <property name="text">
-        <string>Dir or File</string>
+        <string>Dir or File?</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="folder_content_button">
        <property name="text">
-        <string>Folder Contents</string>
+        <string>List Folder Content</string>
        </property>
       </widget>
      </item>
