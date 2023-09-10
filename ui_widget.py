@@ -23,62 +23,62 @@ class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
-        Widget.resize(543, 369)
+        Widget.resize(518, 337)
         self.horizontalLayout = QHBoxLayout(Widget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.line_edit = QLineEdit(Widget)
         self.line_edit.setObjectName(u"line_edit")
 
-        self.verticalLayout_2.addWidget(self.line_edit)
+        self.verticalLayout.addWidget(self.line_edit)
 
         self.list_widget = QListWidget(Widget)
         self.list_widget.setObjectName(u"list_widget")
 
-        self.verticalLayout_2.addWidget(self.list_widget)
+        self.verticalLayout.addWidget(self.list_widget)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout_2)
+        self.horizontalLayout.addLayout(self.verticalLayout)
 
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.choose_dir_button = QPushButton(Widget)
         self.choose_dir_button.setObjectName(u"choose_dir_button")
 
-        self.verticalLayout.addWidget(self.choose_dir_button)
+        self.verticalLayout_2.addWidget(self.choose_dir_button)
 
         self.create_dir_button = QPushButton(Widget)
         self.create_dir_button.setObjectName(u"create_dir_button")
 
-        self.verticalLayout.addWidget(self.create_dir_button)
+        self.verticalLayout_2.addWidget(self.create_dir_button)
 
         self.delete_dir_button = QPushButton(Widget)
         self.delete_dir_button.setObjectName(u"delete_dir_button")
 
-        self.verticalLayout.addWidget(self.delete_dir_button)
+        self.verticalLayout_2.addWidget(self.delete_dir_button)
 
         self.dir_exists_button = QPushButton(Widget)
         self.dir_exists_button.setObjectName(u"dir_exists_button")
 
-        self.verticalLayout.addWidget(self.dir_exists_button)
-
-        self.dir_file_button = QPushButton(Widget)
-        self.dir_file_button.setObjectName(u"dir_file_button")
-
-        self.verticalLayout.addWidget(self.dir_file_button)
+        self.verticalLayout_2.addWidget(self.dir_exists_button)
 
         self.folder_content_button = QPushButton(Widget)
         self.folder_content_button.setObjectName(u"folder_content_button")
 
-        self.verticalLayout.addWidget(self.folder_content_button)
+        self.verticalLayout_2.addWidget(self.folder_content_button)
+
+        self.dir_file_button = QPushButton(Widget)
+        self.dir_file_button.setObjectName(u"dir_file_button")
+
+        self.verticalLayout_2.addWidget(self.dir_file_button)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.verticalLayout.addItem(self.verticalSpacer)
+        self.verticalLayout_2.addItem(self.verticalSpacer)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.horizontalLayout.addLayout(self.verticalLayout_2)
 
 
         self.retranslateUi(Widget)
@@ -92,7 +92,7 @@ class Ui_Widget(object):
         self.create_dir_button.setText(QCoreApplication.translate("Widget", u"Create Directory", None))
         self.delete_dir_button.setText(QCoreApplication.translate("Widget", u"Delete Directory", None))
         self.dir_exists_button.setText(QCoreApplication.translate("Widget", u"Does Dir exist?", None))
-        self.dir_file_button.setText(QCoreApplication.translate("Widget", u"Dir or File?", None))
         self.folder_content_button.setText(QCoreApplication.translate("Widget", u"List Folder Content", None))
+        self.dir_file_button.setText(QCoreApplication.translate("Widget", u"Directory or File?", None))
     # retranslateUi
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>543</width>
-    <height>369</height>
+    <width>518</width>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLineEdit" name="line_edit"/>
      </item>
@@ -25,7 +25,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QPushButton" name="choose_dir_button">
        <property name="text">
@@ -55,16 +55,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="dir_file_button">
+      <widget class="QPushButton" name="folder_content_button">
        <property name="text">
-        <string>Dir or File?</string>
+        <string>List Folder Content</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="folder_content_button">
+      <widget class="QPushButton" name="dir_file_button">
        <property name="text">
-        <string>List Folder Content</string>
+        <string>Directory or File?</string>
        </property>
       </widget>
      </item>
