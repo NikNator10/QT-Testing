@@ -1,46 +1,20 @@
-from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLineEdit, QListWidget, QFileDialog, QMessageBox
+from PySide6.QtWidgets import QWidget, QFileDialog, QMessageBox
 from PySide6.QtCore import QDir, QFileInfo
+from ui_widget import Ui_Widget
 
-class Widget(QWidget):
+class Widget(QWidget, Ui_Widget):
     def __init__(self):
         super().__init__()
+        self.setupUi(self)  
         self.setWindowTitle("QDir - Demo")
 
-        choose_dir_button = QPushButton("Choose Directory")
-        create_dir_button = QPushButton("Create Directory")
-        delete_dir_button = QPushButton("Delete Directory")
-        dir_exists_button = QPushButton("Does Dir exist?")
-        list_folder_conten_button = QPushButton("List folder content")
-        dir_file_button = QPushButton("Dir or file?")
-
-        self.line_edit = QLineEdit()
-        self.list_widget = QListWidget()
-
-        v_button_layout = QVBoxLayout()
-        v_button_layout.addWidget(choose_dir_button)
-        v_button_layout.addWidget(create_dir_button)
-        v_button_layout.addWidget(delete_dir_button)
-        v_button_layout.addWidget(dir_exists_button)
-        v_button_layout.addWidget(list_folder_conten_button)
-        v_button_layout.addWidget(dir_file_button)
-
-        v_line_list_layout = QVBoxLayout()
-        v_line_list_layout.addWidget(self.line_edit)
-        v_line_list_layout.addWidget(self.list_widget)
-
-        h_layout = QHBoxLayout()
-        h_layout.addLayout(v_line_list_layout)
-        h_layout.addLayout(v_button_layout)
-
-        self.setLayout(h_layout)
-
-        choose_dir_button.clicked.connect(self.choose_dir)
-        create_dir_button.clicked.connect(self.create_dir)
-        delete_dir_button.clicked.connect(self.delete_dir)
-        dir_exists_button.clicked.connect(self.dir_exists)
-        list_folder_conten_button.clicked.connect(self.list_folder_content)
-        dir_file_button.clicked.connect(self.dir_file)
-
+        self.choose_dir_button.clicked.connect(self.choose_dir)
+        self.create_dir_button.clicked.connect(self.create_dir)
+        self.delete_dir_button.clicked.connect(self.delete_dir)
+        self.dir_exists_button.clicked.connect(self.dir_exists)
+        self.folder_content_button.clicked.connect(self.folder_content)
+        self.dir_file_button.clicked.connect(self.dir_file)
+    
     def choose_dir(self):
         dir_path = QFileDialog.getExistingDirectory(self, "Choose directory")
         if dir_path == "":
@@ -56,7 +30,7 @@ class Widget(QWidget):
             QMessageBox.information(self, "Directory", "Directory created successfully")
         else:
             QMessageBox.information(self, "Directory", "Could not create directory: Directory already exists")
-    
+        
     def delete_dir(self):
         dir_path = self.line_edit.text()
         if dir_path == "":
@@ -66,7 +40,7 @@ class Widget(QWidget):
             QMessageBox.information(self, "Directory", "Directory deleted successfully")
         else:
             QMessageBox.information(self, "Directory", "Could not delete directory: Directory does not exist")
-        
+    
     def dir_exists(self):
         dir_path = self.line_edit.text()
         if dir_path == "":
@@ -77,7 +51,7 @@ class Widget(QWidget):
         else:
             QMessageBox.information(self, "Directory", "Directory does not exist")
     
-    def list_folder_content(self):
+    def folder_content(self):
         dir_path = self.line_edit.text()
         if dir_path == "":
             return
@@ -87,10 +61,10 @@ class Widget(QWidget):
         for i in range(len(file_list)):
             file_info = QFileInfo(file_list[i])
             self.list_widget.addItem(file_info.absoluteFilePath())
-
+        
     def dir_file(self):
         file_info = QFileInfo(self.list_widget.currentItem().text())
         if file_info.isFile():
             QMessageBox.information(self, "Directory", "The selected object is a file")
         else:
-            QMessageBox.information(self, "Directory", "The selected object is a directory")        
+            QMessageBox.information(self, "Directory", "The selected object is a directory")
