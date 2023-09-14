@@ -1,70 +1,31 @@
-from PySide6.QtWidgets import QWidget, QFileDialog, QMessageBox
-from PySide6.QtCore import QDir, QFileInfo
+from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import QByteArray, QUrl
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from ui_widget import Ui_Widget
 
 class Widget(QWidget, Ui_Widget):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)  
-        self.setWindowTitle("QDir - Demo")
+        self.setupUi(self)
+        self.setWindowTitle("Basic Networking with QT")
 
-        self.choose_dir_button.clicked.connect(self.choose_dir)
-        self.create_dir_button.clicked.connect(self.create_dir)
-        self.delete_dir_button.clicked.connect(self.delete_dir)
-        self.dir_exists_button.clicked.connect(self.dir_exists)
-        self.folder_content_button.clicked.connect(self.folder_content)
-        self.dir_file_button.clicked.connect(self.dir_file)
-    
-    def choose_dir(self):
-        dir_path = QFileDialog.getExistingDirectory(self, "Choose directory")
-        if dir_path == "":
-            return
-        self.line_edit.setText(dir_path)
+        self.manager = QNetworkAccessManager(self)
+        self.data_buffer = QByteArray()
+        self.request = QNetworkRequest()
 
-    def create_dir(self):
-        dir_path = self.line_edit.text()
-        if dir_path == "":
-            return
-        dir = QDir(dir_path)
-        if dir.mkdir(dir_path):
-            QMessageBox.information(self, "Directory", "Directory created successfully")
-        else:
-            QMessageBox.information(self, "Directory", "Could not create directory: Directory already exists")
-        
-    def delete_dir(self):
-        dir_path = self.line_edit.text()
-        if dir_path == "":
-            return
-        dir = QDir(dir_path)
-        if dir.rmdir(dir_path):
-            QMessageBox.information(self, "Directory", "Directory deleted successfully")
-        else:
-            QMessageBox.information(self, "Directory", "Could not delete directory: Directory does not exist")
+        self.request.setUrl(QUrl("https://github.com"))
+
+        self.net_reply = self.manager.get(self.request)
+        self.net_reply.readyRead.connect(self.data_ready_to_read)
+        self.net_reply.finished.connect(self.data_read_finished)
     
-    def dir_exists(self):
-        dir_path = self.line_edit.text()
-        if dir_path == "":
-            return
-        dir = QDir(dir_path)
-        if dir.exists():
-            QMessageBox.information(self, "Directory", "Directory exists")
-        else:
-            QMessageBox.information(self, "Directory", "Directory does not exist")
+    def data_ready_to_read(self):
+        print("Data available")
+        self.data_buffer.append(self.net_reply.readAll())
     
-    def folder_content(self):
-        dir_path = self.line_edit.text()
-        if dir_path == "":
-            return
-        dir = QDir(dir_path)
-        file_list = dir.entryInfoList()
-        self.list_widget.clear()
-        for i in range(len(file_list)):
-            file_info = QFileInfo(file_list[i])
-            self.list_widget.addItem(file_info.absoluteFilePath())
-        
-    def dir_file(self):
-        file_info = QFileInfo(self.list_widget.currentItem().text())
-        if file_info.isFile():
-            QMessageBox.information(self, "Directory", "The selected object is a file")
+    def data_read_finished(self):
+        print("Data read finished")
+        if self.net_reply.error() is not QNetworkReply.NoError:
+            print("Some error occurred")
         else:
-            QMessageBox.information(self, "Directory", "The selected object is a directory")
+            self.textEdit.setText(str(self.data_buffer))
