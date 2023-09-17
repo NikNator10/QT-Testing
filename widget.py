@@ -16,19 +16,19 @@ class Widget(QWidget):
         self.data_buffer = QByteArray()
         self.request = QNetworkRequest()
 
-        self.request.setUrl(QUrl("https://google.com"))
+        self.request.setUrl(QUrl("https://github.com"))
 
         self.net_reply = self.manager.get(self.request)
-        self.net_reply.readyRead.connect(self.file_read_ready)
-        self.net_reply.finished.connect(self.finished)
+        self.net_reply.readyRead.connect(self.data_ready_read)
+        self.net_reply.finished.connect(self.data_load_finished)
 
-    def file_read_ready(self):
+    def data_ready_read(self):
         print("Data recieved")
         self.data_buffer.append(self.net_reply.readAll())
-    
-    def finished(self):
-        print("Data read finished")
+
+    def data_load_finished(self):
+        print("Data load finished")
         if self.net_reply.error() is not QNetworkReply.NoError:
-            print("Some error occurred")
+            print("Some error occured")
         else:
             self.text_edit.setText(str(self.data_buffer))
