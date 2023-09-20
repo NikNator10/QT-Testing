@@ -1,46 +1,28 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QTextEdit, QInputDialog, QFileDialog, QPushButton
-from PySide6.QtCore import QUrl, QByteArray, QFile, QIODevice, QTextStream
-from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QPushButton, QFileDialog
+from PySide6.QtCore import QFile, QTextStream, QIODevice
 
 class Widget(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Basic Networking in Qt")
+        self.setWindowTitle("Save & Open Text-files")
 
+        save_file_button = QPushButton("Save File")
+        save_file_button.clicked.connect(self.save_file)
+        open_file_button = QPushButton("Open File")
+        open_file_button.clicked.connect(self.open_file)
         self.text_edit = QTextEdit()
-        save_to_file_button = QPushButton("Save to file")
-        save_to_file_button.clicked.connect(self.save_file)
-        
-        v_layout = QVBoxLayout()
-        v_layout.addWidget(self.text_edit)
-        v_layout.addWidget(save_to_file_button)
-        self.setLayout(v_layout)
 
-        self.manager = QNetworkAccessManager(self)
-        self.data_buffer = QByteArray()
-        self.request = QNetworkRequest()
-        
-        url,ok = QInputDialog.getText(self, "URL", "Enter URL:")
-        if ok and not url == "":
-            self.request.setUrl(QUrl(url))
+        v_button_lyaout = QVBoxLayout()
+        v_button_lyaout.addWidget(save_file_button)
+        v_button_lyaout.addWidget(open_file_button)
 
-        self.net_reply = self.manager.get(self.request)
-        self.net_reply.readyRead.connect(self.data_read_ready)
-        self.net_reply.finished.connect(self.data_read_finished)
+        h_layout = QHBoxLayout()
+        h_layout.addWidget(self.text_edit)
+        h_layout.addLayout(v_button_lyaout)
+        self.setLayout(h_layout)
 
-    def data_read_ready(self):
-        print("Data recieved!")
-        self.data_buffer.append(self.net_reply.readAll())
-
-    def data_read_finished(self):
-        print("Data read finished")
-        if self.net_reply.error() is not QNetworkReply.NoError:
-            print("Some error occurred")
-        else:
-            self.text_edit.setText(str(self.data_buffer))
-    
     def save_file(self):
-        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "", "Text (*.txt)")
+        file_name,_ = QFileDialog.getSaveFileName(self, "Save File", "", "Text-File (*.txt);;All Files(*.*)")
         if file_name == "":
             return
         file = QFile(file_name)
@@ -48,3 +30,20 @@ class Widget(QWidget):
             return
         out_stream = QTextStream(file)
         out_stream << self.text_edit.toPlainText()
+
+    def open_file(self):
+        file_content = ""
+        file_name,_ = QFileDialog.getOpenFileName(self, "Opem File", "", "Text-File (*.txt);;All Files (*.*)")
+        if file_name == "":
+            return
+        file = QFile(file_name)
+        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+            return
+        in_stream = QTextStream(file)
+        while not in_stream.atEnd():
+            line = in_stream.readLine()
+            file_content += line
+            file_content += "\n"
+        self.text_edit.clear()
+        self.text_edit.setText(file_content)
+        
